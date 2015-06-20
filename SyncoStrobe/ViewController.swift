@@ -8,11 +8,17 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        print(strobe())
+        // prints "hello, world"
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,4 +28,21 @@ class ViewController: UIViewController {
 
 
 }
+
+
+func strobe() -> String {
+  
+    
+    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    if device.hasTorch {
+        device.lockForConfiguration(nil)
+        device.setTorchModeOnWithLevel(1.0, error: nil)
+        device.unlockForConfiguration()
+    }
+    
+    println("Hi!")
+    
+    return "Strobe"
+}
+
 
