@@ -38,7 +38,7 @@ class ViewController: UIViewController {
 
 
 
-func strobeOn() -> String {
+func strobeOn() {
 
     
 let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
@@ -55,4 +55,6 @@ if (device.hasTorch) {
     device.unlockForConfiguration()
 }
 
+    
+    
 }
