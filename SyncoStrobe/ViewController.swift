@@ -46,30 +46,53 @@ func loop() {
     var systemTime:NSTimeInterval
     var milliseconds:Int
     var remainder: Int
-
     
-    let interval = 15
+    var isOn:Bool
     
+    let interval = 150
+    
+    isOn = false
     while  true {
         systemTime = NSDate().timeIntervalSince1970
         milliseconds = Int(systemTime*1000)
         remainder = milliseconds % interval
         
-        
-        
-        
-        if remainder == 0 {
+        if remainder >= 0 && remainder <= interval/4 {
        
-            println(milliseconds)
-            
-            strobeOn()
+            if !isOn {
+                print(" On")
+                println(milliseconds)
+               strobeOn()
+                isOn = true
+            }
+        }
+        else
+        {
+            if isOn {
+                print(" Off")
+                println(milliseconds)
+                strobeOff()
+                isOn = false
+            }
         }
     }
 }
 
-
-
 func strobeOn() {
+    
+    
+    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    if (device.hasTorch) {
+        
+        println("device has touch")
+        
+        device.lockForConfiguration(nil)
+        device.setTorchModeOnWithLevel(1.0, error: nil)
+        device.unlockForConfiguration()
+    }
+}
+
+func strobeOff() {
 
     
 let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
@@ -78,11 +101,26 @@ if (device.hasTorch) {
     println("device has touch")
     
     device.lockForConfiguration(nil)
-    if (device.torchMode == AVCaptureTorchMode.On) {
-        device.torchMode = AVCaptureTorchMode.Off
-    } else {
-        device.setTorchModeOnWithLevel(1.0, error: nil)
-    }
+    device.torchMode = AVCaptureTorchMode.Off
     device.unlockForConfiguration()
 }
 }
+
+func strobeToggle() {
+    
+    
+    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    if (device.hasTorch) {
+        
+        println("device has touch")
+        
+        device.lockForConfiguration(nil)
+        if (device.torchMode == AVCaptureTorchMode.On) {
+            device.torchMode = AVCaptureTorchMode.Off
+        } else {
+            device.setTorchModeOnWithLevel(1.0, error: nil)
+        }
+        device.unlockForConfiguration()
+    }
+}
+
