@@ -7,15 +7,21 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 class ViewController: UIViewController {
 
+    var timer = NSTimer()
+
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+      
         
-        print(strobe())
+        
+        strobeOn()
         // prints "hello, world"
 
         
@@ -43,19 +49,22 @@ func loop() {
 }
 
 
-func strobe() -> String {
-  
+
+
+func strobeOn() {
+
     
-    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-    if device.hasTorch {
-        device.lockForConfiguration(nil)
+let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+if (device.hasTorch) {
+    
+    println("device has touch")
+    
+    device.lockForConfiguration(nil)
+    if (device.torchMode == AVCaptureTorchMode.On) {
+        device.torchMode = AVCaptureTorchMode.Off
+    } else {
         device.setTorchModeOnWithLevel(1.0, error: nil)
-        device.unlockForConfiguration()
     }
-    
-    println("Hi!")
-    
-    return "Strobe"
+    device.unlockForConfiguration()
 }
-
-
+}
