@@ -11,7 +11,15 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    var timer = NSTimer()
+    
+    
+    @IBAction func button(sender: AnyObject) {
+        
+        
+          loop()
+        
+    }
+      var timer = NSTimer()
 
 
     
@@ -21,9 +29,8 @@ class ViewController: UIViewController {
       
         
         
-        strobeOn()
-        // prints "hello, world"
-
+        
+        
         
     }
 
@@ -37,12 +44,24 @@ class ViewController: UIViewController {
 
 func loop() {
     var systemTime:NSTimeInterval
-    var milliseconds:Double
+    var milliseconds:Int
+    var remainder: Int
+
     
-    while true {
+    let interval = 15
+    
+    while  true {
         systemTime = NSDate().timeIntervalSince1970
-        milliseconds = Double(systemTime)
-        if milliseconds % 1 == 0 {
+        milliseconds = Int(systemTime*1000)
+        remainder = milliseconds % interval
+        
+        
+        
+        
+        if remainder == 0 {
+       
+            println(milliseconds)
+            
             strobeOn()
         }
     }
