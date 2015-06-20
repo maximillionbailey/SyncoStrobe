@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBAction func button(sender: AnyObject) {
         
         
-          loop()
         
     }
       var timer = NSTimer()
@@ -28,6 +27,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
       
         
+        loop()
         
         
         
