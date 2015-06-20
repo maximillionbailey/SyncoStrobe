@@ -54,7 +54,4 @@ if (device.hasTorch) {
     }
     device.unlockForConfiguration()
 }
-
-    
-    
 }
