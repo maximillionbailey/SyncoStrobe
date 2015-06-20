@@ -29,6 +29,19 @@ class ViewController: UIViewController {
 
 }
 
+func loop() {
+    var systemTime:NSTimeInterval
+    var milliseconds:Double
+    
+    while true {
+        systemTime = NSDate().timeIntervalSince1970
+        milliseconds = Double(systemTime)
+        if milliseconds % 1 == 0 {
+            strobeOn()
+        }
+    }
+}
+
 
 func strobe() -> String {
   
