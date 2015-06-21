@@ -50,6 +50,7 @@ func loop() {
     var isOn:Bool
     
     let interval = 150
+    let dutyCycle = 15 // % ON time - 1-100
     
     isOn = false
     while  true {
@@ -57,20 +58,17 @@ func loop() {
         milliseconds = Int(systemTime*1000)
         remainder = milliseconds % interval
         
-        if remainder >= 0 && remainder <= interval/4 {
-       
+        if remainder >= 0 && remainder <= interval * dutyCycle / 100 {       
             if !isOn {
-                print(" On")
-                println(milliseconds)
-               strobeOn()
+                println(String(format : "%d On", milliseconds))
+                strobeOn()
                 isOn = true
             }
         }
         else
         {
             if isOn {
-                print(" Off")
-                println(milliseconds)
+                println(String(format : "%d Off", milliseconds))
                 strobeOff()
                 isOn = false
             }
